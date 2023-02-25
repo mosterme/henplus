@@ -47,17 +47,33 @@ public class SQLSession implements Interruptable {
             ClassNotFoundException, SQLException, IOException {
         _statementCount = 0;
         _conn = null;
-        _url = url;
         _username = user;
         _password = password;
         _propertyRegistry = new PropertyRegistry();
+
+        // strips username and password from jdbc url.
+        // this will override _username and _password.
+        // seems unlikely those had different values.
+        if (url.matches("jdbc:oracle:thin:(.+)/(.+)@.+")) {
+            _username = url.replaceFirst("jdbc:oracle:thin:(.+)/(.+)@.+", "$1");
+            _password = url.replaceFirst("jdbc:oracle:thin:(.+)/(.+)@.+", "$2");
+            _url = url.replace(_username + "/" + _password, "");
+            //HenPlus.msg().println("stripped user and pass from jdbc url");
+        } else if (url.matches("jdbc:postgresql:.+[?&](user|password)=([^&]+).*")) {
+            _username = url.replaceFirst("jdbc:postgresql:.+[?&]user=([^&]+).*", "$1");
+            _password = url.replaceFirst("jdbc:postgresql:.+[?&]password=([^&]*).*", "$1");
+            _url = url.replaceAll("(user|password)=([^&]*&?)", "").replaceAll("[?]$", "");
+            //HenPlus.msg().println("stripped user and pass from jdbc url");
+        } else {
+            _url = url;
+        }
 
         Driver driver = null;
         // HenPlus.msg().println("connect to '" + url + "'");
         driver = DriverManager.getDriver(url);
 
         HenPlus.msg().println("HenPlus II connecting ");
-        HenPlus.msg().println(" url '" + url + '\'');
+        HenPlus.msg().println(" url '" + _url + '\'');
         HenPlus.msg().println(" driver version " + driver.getMajorVersion() + "." + driver.getMinorVersion());
         connect();
 
