@@ -22,6 +22,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.SortedSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * a SQL session.
@@ -54,11 +56,12 @@ public class SQLSession implements Interruptable {
         // strips username and password from jdbc url.
         // this will override _username and _password.
         // seems unlikely those had different values.
-        if (url.matches("jdbc:oracle:thin:(.+)/(.+)@.+")) {
-            _username = url.replaceFirst("jdbc:oracle:thin:(.+)/(.+)@.+", "$1");
-            _password = url.replaceFirst("jdbc:oracle:thin:(.+)/(.+)@.+", "$2");
+        Matcher oracle_matcher = Pattern.compile("jdbc:oracle:thin:(.+)/(.+)@.+").matcher(url);
+        if (oracle_matcher.matches()) {
+            _username = oracle_matcher.group(1);
+            _password = oracle_matcher.group(2);
             _url = url.replace(_username + "/" + _password, "");
-            //HenPlus.msg().println("stripped user and pass from jdbc url");
+            //HenPlus.msg().println("stripped user/pass from jdbc url");
         } else if (url.matches("jdbc:postgresql:.+[?&](user|password)=([^&]+).*")) {
             _username = url.replaceFirst("jdbc:postgresql:.+[?&]user=([^&]+).*", "$1");
             _password = url.replaceFirst("jdbc:postgresql:.+[?&]password=([^&]*).*", "$1");
