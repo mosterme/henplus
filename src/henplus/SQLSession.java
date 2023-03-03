@@ -56,8 +56,14 @@ public class SQLSession implements Interruptable {
         // strips username and password from jdbc url.
         // this will override _username and _password.
         // seems unlikely those had different values.
+        Matcher mysqlj_matcher = Pattern.compile("jdbc:mysql://(.+):(.+)@.+").matcher(url);
         Matcher oracle_matcher = Pattern.compile("jdbc:oracle:thin:(.+)/(.+)@.+").matcher(url);
-        if (oracle_matcher.matches()) {
+        if (mysqlj_matcher.matches()) {
+            _username = mysqlj_matcher.group(1);
+            _password = mysqlj_matcher.group(2);
+            _url = url.replace(_username + ":" + _password + "@", "");
+            //HenPlus.msg().println("stripped user:pass from jdbc url");
+        } else if (oracle_matcher.matches()) {
             _username = oracle_matcher.group(1);
             _password = oracle_matcher.group(2);
             _url = url.replace(_username + "/" + _password, "");
