@@ -58,6 +58,8 @@ public class SQLSession implements Interruptable {
         // seems unlikely those had different values.
         Matcher mysqlj_matcher = Pattern.compile("jdbc:mysql://(.+):(.+)@.+").matcher(url);
         Matcher oracle_matcher = Pattern.compile("jdbc:oracle:thin:(.+)/(.+)@.+").matcher(url);
+        Matcher postgr_matcher = Pattern.compile("jdbc:postgresql://.+/.+[?].+").matcher(url);
+        Matcher secret_matcher = Pattern.compile("(?:(user=(?<user>[^&]*)&?)|(password=(?<pass>[^&]*)&?)){2}").matcher(url);
         if (mysqlj_matcher.matches()) {
             _username = mysqlj_matcher.group(1);
             _password = mysqlj_matcher.group(2);
@@ -68,10 +70,10 @@ public class SQLSession implements Interruptable {
             _password = oracle_matcher.group(2);
             _url = url.replace(_username + "/" + _password, "");
             //HenPlus.msg().println("stripped user/pass from jdbc url");
-        } else if (url.matches("jdbc:postgresql:.+[?&](user|password)=([^&]+).*")) {
-            _username = url.replaceFirst("jdbc:postgresql:.+[?&]user=([^&]+).*", "$1");
-            _password = url.replaceFirst("jdbc:postgresql:.+[?&]password=([^&]*).*", "$1");
-            _url = url.replaceAll("(user|password)=([^&]*&?)", "").replaceAll("[?]$", "");
+        } else if (postgr_matcher.matches() && secret_matcher.find()) {
+            _username = secret_matcher.group("user");
+            _password = secret_matcher.group("pass");
+            _url = secret_matcher.replaceAll("").replaceFirst("[?&]$", "");
             //HenPlus.msg().println("stripped user and pass from jdbc url");
         } else {
             _url = url;
