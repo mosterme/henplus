@@ -66,6 +66,25 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+            </manifest>
+            <manifestEntries>
+              <Implementation-Version>${project.version}</Implementation-Version>
+              <Implementation-Title>${title}</Implementation-Title>
+              <Implementation-Build-Date>${build.timestamp}</Implementation-Build-Date>
+              <License>GNU General Public License Version 2.0</License>
+              <Main-Class>henplus.HenPlus</Main-Class>
+              <Name>${project.name}</Name>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
  
