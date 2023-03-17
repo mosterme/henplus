@@ -7,6 +7,12 @@
   <version>0.9.8</version>
   <packaging>jar</packaging>
 
+  <properties>
+    <maven.build.timestamp.format>MMMM dd yyyy HH:mm</maven.build.timestamp.format>
+    <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+    <title>Yay Labor Day</title>
+  </properties>
+ 
   <!-- Dependencies -->
   <dependencies>
     <dependency>
@@ -26,6 +32,33 @@
   <build>
     <directory>build</directory>
     <sourceDirectory>src</sourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <!-- would be easier to put these into the manifest for the jar.
+                 but then the values would be null if run from classpath. -->
+            <phase>generate-sources</phase>
+            <configuration>
+              <target>
+                <filter token="HENPLUS_VERSION" value="${project.version}"/>
+                <filter token="HENPLUS_VERSION_TITLE" value="${title}"/>
+                <filter token="COMPILE_TIME" value="${maven.build.timestamp}"/>
+                <copy file="${project.build.sourceDirectory}/henplus/Version.java.in"
+                    tofile="${project.build.sourceDirectory}/henplus/Version.java"
+                    filtering="yes" 
+                    overwrite="yes" />
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
  
 </project>
