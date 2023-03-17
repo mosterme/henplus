@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.gnu</groupId>
+  <artifactId>libreadline-java</artifactId>
+  <packaging>jar</packaging>
+  <version>0.8.0</version>
+  <name>java-readline</name>
+  <licenses>
+    <license>
+      <name>GNU Lesser General Public License, version 2.1</name>
+      <url>https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <description>GNU readline and BSD editline wrappers for Java</description>
+  <url>https://github.com/aclemons/java-readline</url>
+</project>
