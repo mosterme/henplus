@@ -7,6 +7,14 @@
   <version>0.9.8</version>
   <packaging>jar</packaging>
 
+  <licenses>
+    <license>
+      <name>GNU General Public License Version 2.0</name>
+      <url>https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt</url>
+      <distribution>manual</distribution>
+    </license>
+  </licenses>
+
   <properties>
     <maven.build.timestamp.format>MMMM dd yyyy HH:mm</maven.build.timestamp.format>
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
