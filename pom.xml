@@ -7,6 +7,10 @@
   <version>0.9.8</version>
   <packaging>jar</packaging>
 
+  <!-- More Project Information -->
+  <name>HenPlus</name>
+  <inceptionYear>1997</inceptionYear>
+
   <licenses>
     <license>
       <name>GNU General Public License Version 2.0</name>
