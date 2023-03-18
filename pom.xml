@@ -11,19 +11,21 @@
   <name>HenPlus</name>
   <inceptionYear>1997</inceptionYear>
 
-  <licenses>
-    <license>
-      <name>GNU General Public License Version 2.0</name>
-      <url>https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt</url>
-      <distribution>manual</distribution>
-    </license>
-  </licenses>
-
   <properties>
     <maven.build.timestamp.format>MMMM dd yyyy HH:mm</maven.build.timestamp.format>
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
-    <title>Yay Labor Day</title>
+    <license.name>GNU General Public License Version 2.0</license.name>
+    <license.url>http://www.gnu.org/licenses/gpl2.txt></license.url>
+    <version.title>Yay Labor Day</version.title>
   </properties>
+
+  <licenses>
+    <license>
+      <name>${license.name}</name>
+      <url>${license.url}</url>
+      <distribution>manual</distribution>
+    </license>
+  </licenses>
  
   <!-- Dependencies -->
   <dependencies>
@@ -56,8 +58,8 @@
             <configuration>
               <target>
                 <filter token="HENPLUS_VERSION" value="${project.version}"/>
-                <filter token="HENPLUS_VERSION_TITLE" value="${title}"/>
-                <filter token="COMPILE_TIME" value="${maven.build.timestamp}"/>
+                <filter token="HENPLUS_VERSION_TITLE" value="${version.title}"/>
+                <filter token="COMPILE_TIME" value="${build.timestamp}"/>
                 <copy file="${project.build.sourceDirectory}/henplus/Version.java.in"
                     tofile="${project.build.sourceDirectory}/henplus/Version.java"
                     filtering="yes" 
@@ -80,9 +82,9 @@
             </manifest>
             <manifestEntries>
               <Implementation-Version>${project.version}</Implementation-Version>
-              <Implementation-Title>${title}</Implementation-Title>
+              <Implementation-Title>${version.title}</Implementation-Title>
               <Implementation-Build-Date>${build.timestamp}</Implementation-Build-Date>
-              <License>GNU General Public License Version 2.0</License>
+              <License>${license.name}</License>
               <Main-Class>henplus.HenPlus</Main-Class>
               <Name>${project.name}</Name>
             </manifestEntries>
