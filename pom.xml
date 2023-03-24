@@ -62,7 +62,7 @@
                 <filter token="COMPILE_TIME" value="${build.timestamp}"/>
                 <copy file="${project.build.sourceDirectory}/henplus/Version.java.in"
                     tofile="${project.build.sourceDirectory}/henplus/Version.java"
-                    filtering="yes" 
+                    filtering="yes"
                     overwrite="yes" />
               </target>
             </configuration>
@@ -90,6 +90,22 @@
             </manifestEntries>
           </archive>
         </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>install</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <includeScope>compile</includeScope>
+              <outputDirectory>${project.build.directory}</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
