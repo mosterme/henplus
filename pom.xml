@@ -40,6 +40,25 @@
         <artifactId>libreadline-java</artifactId>
         <version>0.8.0</version>
      </dependency>
+     <!-- some jdbc drivers, to be included in the manifest's classpath -->
+     <dependency>
+        <groupId>org.hsqldb</groupId>
+        <artifactId>hsqldb</artifactId>
+        <version>2.7.1</version>
+        <!--<scope>test</scope>-->
+     </dependency>
+     <!--
+     <dependency>
+        <groupId>com.oracle.database.jdbc</groupId>
+        <artifactId>ojdbc8</artifactId>
+        <version>12.2.0.1</version>
+     </dependency>
+     <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>42.6.0</version>
+     </dependency>
+     -->
   </dependencies>
 
   <!-- Build Settings -->
