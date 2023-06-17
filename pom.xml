@@ -27,6 +27,14 @@
     </license>
   </licenses>
  
+  <!-- GitHub Repo for libreadline-java -->
+  <repositories>
+    <repository>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/mosterme/henplus</url>
+    </repository>
+  </repositories>
+
   <!-- Dependencies -->
   <dependencies>
     <dependency>
